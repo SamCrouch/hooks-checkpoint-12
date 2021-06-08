@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+async function getProductsList(){
+  const url = "http://3.21.164.220/products/";
+  const response = await fetch(url); 
+  const data = await response.json() 
+  return data;
 }
+
+function App () {
+  const [state, setState] = useState({data: []})
+  const products = getProductsList()
+  console.log(products)
+
+  async function getProductsList(productID){
+    const url = "http://3.21.164.220/products/{productID}"; 
+    const response = await fetch(url); 
+    const data = await response.json() 
+    return data;
+  }
+  const specificProduct = getProductsList(1)
+
+  return (
+    <div>
+      <h1>Test</h1>
+    </div>
+
+
+  )
+}
+
 
 export default App;
